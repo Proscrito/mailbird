@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DeveloperTest.Extensions;
@@ -11,14 +12,17 @@ namespace DeveloperTest.Services
 {
     public class MailService : IMailService
     {
+        private int BaseTimeoutSec = 30;
         public async Task<IList<MailModel>> GetMessagesImapAsync(ServerInfoModel serverInfoModel)
         {
-           return await Task.Run(() => GetMessagesImap(serverInfoModel));
+            var task = Task.Run(() => GetMessagesImap(serverInfoModel));
+            return await TimeoutAfter(task);
         }
 
         public async Task<IList<MailModel>> GetMessagesPop3Async(ServerInfoModel serverInfoModel)
         {
-            return await Task.Run(() => GetMessagesPop3(serverInfoModel));
+            var task = Task.Run(() => GetMessagesPop3(serverInfoModel));
+            return await TimeoutAfter(task);
         }
 
         private IList<MailModel> GetMessagesPop3(ServerInfoModel serverInfoModel)
@@ -54,6 +58,8 @@ namespace DeveloperTest.Services
         {
             using (var imap = new Imap())
             {
+                //imap connection with wrong port will stuck forever, this is handled by setting timeout
+                //probably need more intelligent handling
                 imap.ConnectSSL(serverInfoModel.Server, serverInfoModel.Port);
                 imap.UseBestLogin(serverInfoModel.User, serverInfoModel.Password);
                 imap.SelectInbox();
@@ -78,6 +84,19 @@ namespace DeveloperTest.Services
                     Body = email.Text
                 };
             }
+        }
+
+        //probably better to add extension method, but let's get lazy whenever it's possible... 
+        private async Task<TResult> TimeoutAfter<TResult>(Task<TResult> task)
+        {
+            if (await Task.WhenAny(task, Task.Delay(TimeSpan.FromSeconds(BaseTimeoutSec))) == task)
+            {
+                //re-await for exception handling
+                return await task;
+            }
+
+            //timeout
+            throw new TimeoutException($"Operation exceeded timeout ({BaseTimeoutSec} sec)");
         }
     }
 }

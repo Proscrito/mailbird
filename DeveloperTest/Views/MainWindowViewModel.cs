@@ -59,7 +59,7 @@ namespace DeveloperTest.Views
             catch (Exception e)
             {
                 //log error
-                MailBody = e.GetBaseException().Message;
+                MessageBox.Show(e.GetBaseException().Message,"Ooops!", MessageBoxButton.OK,MessageBoxImage.Error);
             }
             finally
             {
