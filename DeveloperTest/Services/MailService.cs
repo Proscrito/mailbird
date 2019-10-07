@@ -25,7 +25,7 @@ namespace DeveloperTest.Services
         {
             using (var pop3 = new Pop3())
             {
-                pop3.ConnectSSL(serverInfoModel.Server);
+                pop3.ConnectSSL(serverInfoModel.Server, serverInfoModel.Port);
                 pop3.Login(serverInfoModel.User, serverInfoModel.Password);
 
                 return GetMessagesPop3(pop3).ToList();
@@ -54,7 +54,7 @@ namespace DeveloperTest.Services
         {
             using (var imap = new Imap())
             {
-                imap.ConnectSSL(serverInfoModel.Server);
+                imap.ConnectSSL(serverInfoModel.Server, serverInfoModel.Port);
                 imap.UseBestLogin(serverInfoModel.User, serverInfoModel.Password);
                 imap.SelectInbox();
 

@@ -55,5 +55,6 @@
         <Label Content="Server type" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="98,10,0,0" VerticalAlignment="Top" Width="190" ItemsSource="{Binding Source={StaticResource ServerTypes}}" SelectedValue="{Binding Path=ServerType}"/>
         <TextBox HorizontalAlignment="Left" Height="690" Margin="647,10,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedMailModel.Body, Mode=OneWay}" VerticalAlignment="Top" Width="632"/>
+        <Label Content="(993 for IMAP, 995 for POP3)" HorizontalAlignment="Left" Margin="98,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.769,1.196"/>
     </Grid>
 </Window>
