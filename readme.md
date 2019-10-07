@@ -2,9 +2,10 @@
 
 - I kept only one single project and didn't make several layers because of small code amount.
 - Dependency injection seem to be overengineering here, however it's hard to imagine up-to-date c# solution without DI, so I added Autofac usage to inject the single service I have :)
-- I don't download mail headres separately from bodies. It requires more architectural efforts then it is reasonable. Using this approach it is nice to have the local email storage, to save already downloaded emails, then we can download only headers (perhaps, only the new headers, using the search criteria by date), and show message content by clicking the header. If the body wasn't downloaded yet, we can download it and save locally. So, I am using the simpliest way: getting all messages using appropriate methods from Mail.dll. It is still happen in the background thread and doesn't block UI, I believe it is enough for the demonstration.
+- I don't download mail headres separately from bodies. It requires more architectural efforts then it is reasonable. Using this approach it is nice to have the local email storage to save already downloaded emails, then we can download only headers (perhaps, only the new headers, using the search criteria by date) and show message content by clicking the header. If the body wasn't downloaded yet, we can download it and save locally. So, I am using the simpliest way: getting all messages using appropriate methods from Mail.dll. It is still going in the background thread and not blocking UI. I believe it is enough for the demonstration.
 - I didn't spend much time for the error handling. There are no any strategy, fundamental logging approach or whatever. However, exceptions from the service layer shouldn't crash the application and there is a place for the basic handling. It's not enough for the real commercial project, but should be fine for small example.
 - Encryption is also not used. The field exists but not connected to any logic. Implementation does not raise the complexity, just the amount of the code. Adding some additional code flows will make the project just a bit more bulky.
+- Didn't add any HTML body rendering, attachments and other common email stuff, I believe it is exceed the demo scope
 
 ## The Objective
 
