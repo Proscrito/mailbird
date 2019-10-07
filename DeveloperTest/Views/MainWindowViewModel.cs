@@ -16,6 +16,7 @@ namespace DeveloperTest.Views
         private readonly IMailService _mailService;
         //test gmail account data, no need to protect, leave test data here
         public string ServerURL { get; set; } = "imap.gmail.com";
+        public int ServerPort { get; set; } = 993;
         public string User { get; set; } = "mbtest.task@gmail.com";
         public string Password { get; set; } = "p@33w0rd";
         public ServerType ServerType { get; set; }
@@ -48,7 +49,8 @@ namespace DeveloperTest.Views
                 {
                     Server = ServerURL,
                     User = User,
-                    Password = Password
+                    Password = Password,
+                    Port = ServerPort
                 };
 
                 var emails = await GetEmails(serverInfo);
