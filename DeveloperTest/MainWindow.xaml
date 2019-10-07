@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:system="clr-namespace:System;assembly=mscorlib" 
         xmlns:local="clr-namespace:DeveloperTest.Enums" 
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         Title="MainWindow" Height="740" Width="1297">
     <Window.Resources>
         <ObjectDataProvider x:Key="ServerTypes" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
@@ -49,6 +50,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="411,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Text="{Binding Path=User}"/>
         <!--we probably need to use passwordbox here, but it is overkill for the test task, too much security-->
         <TextBox HorizontalAlignment="Left" Height="23" Margin="411,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Text="{Binding Path=Password}"/>
+        <fa:ImageAwesome Icon="Spinner" Spin="True" Height="50" Width="50" Margin="297,401,937,260" Visibility="{Binding Path=LoadBarVisibility}"/>
         <Button Content="Start" HorizontalAlignment="Left" Margin="446,104,0,0" VerticalAlignment="Top" Width="155" Height="36" Command="{Binding StartCommand}"/>
         <Label Content="Server type" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="98,10,0,0" VerticalAlignment="Top" Width="190" ItemsSource="{Binding Source={StaticResource ServerTypes}}" SelectedValue="{Binding Path=ServerType}"/>

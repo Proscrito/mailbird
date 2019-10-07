@@ -7,5 +7,6 @@ namespace DeveloperTest.Services
     public interface IMailService
     {
         Task<IList<MailModel>> GetMessagesImapAsync(ServerInfoModel serverInfoModel);
+        Task<IList<MailModel>> GetMessagesPop3Async(ServerInfoModel serverInfoModel);
     }
 }
